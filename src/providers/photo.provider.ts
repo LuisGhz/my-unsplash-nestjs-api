@@ -1,9 +1,10 @@
 import { Connection } from 'mongoose';
 import { PhotoSchema } from '../schema/photo.schema';
+import { dataBaseConts } from 'src/consts/database.conts';
 
 export const photoProvider = {
-  provide: 'PHOTO_MODEL',
+  provide: dataBaseConts.PHOTO_MODEL,
   useFactory: (connection: Connection) =>
     connection.model('Photo', PhotoSchema),
-  inject: ['DATABASE_CONNECTION'],
+  inject: [dataBaseConts.DATABASE_CONNECTION],
 };

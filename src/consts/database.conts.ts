@@ -1,0 +1,4 @@
+export const dataBaseConts = {
+  PHOTO_MODEL: 'PHOTO_MODEL',
+  DATABASE_CONNECTION: 'DATABASE_CONNECTION',
+};

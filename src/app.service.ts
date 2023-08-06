@@ -2,10 +2,13 @@ import { Injectable, Inject } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { Photo } from './models/photo.model';
 import { PhotoDto } from './dto/PhotoDto';
+import { dataBaseConts } from './consts/database.conts';
 
 @Injectable()
 export class AppService {
-  constructor(@Inject('PHOTO_MODEL') private photoModel: Model<Photo>) {}
+  constructor(
+    @Inject(dataBaseConts.PHOTO_MODEL) private photoModel: Model<Photo>,
+  ) {}
 
   async createPhoto(photo: PhotoDto): Promise<Photo> {
     const createPhoto = new this.photoModel(photo);
