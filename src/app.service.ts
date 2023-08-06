@@ -1,8 +1,27 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
+import { Model } from 'mongoose';
+import { Photo } from './models/photo.model';
+import { PhotoDto } from './dto/PhotoDto';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
+  constructor(@Inject('PHOTO_MODEL') private photoModel: Model<Photo>) {}
+
+  async createPhoto(photo: PhotoDto): Promise<Photo> {
+    const createPhoto = new this.photoModel(photo);
+    return createPhoto.save();
+  }
+
+  async findAll(): Promise<Photo[]> {
+    return this.photoModel.find().exec();
+  }
+
+  async findByLabel(label: string): Promise<Photo[]> {
+    const regex = new RegExp(label);
+    return this.photoModel
+      .find({
+        label: { $regex: regex, $options: 'i' },
+      })
+      .exec();
   }
 }
