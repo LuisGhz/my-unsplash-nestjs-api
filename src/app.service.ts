@@ -15,6 +15,10 @@ export class AppService {
     return createPhoto.save();
   }
 
+  async createManyPhotos(photo: PhotoDto[]): Promise<Photo[]> {
+    return this.photoModel.insertMany(photo);
+  }
+
   async findAll(): Promise<Photo[]> {
     return this.photoModel.find().exec();
   }

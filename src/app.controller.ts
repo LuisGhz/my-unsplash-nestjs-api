@@ -20,6 +20,12 @@ export class AppController {
     return this._appService.createPhoto(photoDto);
   }
 
+  @Post('many')
+  @UsePipes(new ValidationPipe())
+  createManyPhotos(@Body() photoDto: PhotoDto[]) {
+    return this._appService.createManyPhotos(photoDto);
+  }
+
   @Get()
   findAll() {
     return this._appService.findAll();
