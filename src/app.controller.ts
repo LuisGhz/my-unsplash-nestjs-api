@@ -5,7 +5,8 @@ import {
   Body,
   UsePipes,
   ValidationPipe,
-  Param,
+  Query,
+  Delete,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { PhotoDto } from './dto/PhotoDto';
@@ -27,12 +28,13 @@ export class AppController {
   }
 
   @Get()
-  findAll() {
+  findAll(@Query('query') query = '') {
+    if (query !== '') return this._appService.findByLabel(query);
     return this._appService.findAll();
   }
 
-  @Get('by-label/:label')
-  findByLabel(@Param('label') label: string) {
-    return this._appService.findByLabel(label);
+  @Delete()
+  delete(@Query('id') id: string) {
+    this._appService.delete(id);
   }
 }
