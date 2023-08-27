@@ -31,4 +31,8 @@ export class AppService {
       })
       .exec();
   }
+
+  async delete(id: string) {
+    this.photoModel.deleteOne({ _id: id }).exec();
+  }
 }
